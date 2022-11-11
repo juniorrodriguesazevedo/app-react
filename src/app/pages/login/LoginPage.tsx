@@ -1,9 +1,9 @@
 import FormLoginComponent from "./components/FormLoginComponent";
 
-function Login() {
+function LoginPage() {
     return (
         <FormLoginComponent/>
     )
 }
 
-export default Login;
+export default LoginPage;
