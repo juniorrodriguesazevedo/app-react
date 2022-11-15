@@ -1,21 +1,31 @@
-import { useState } from "react";
 import { Table } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { TaskInterface } from "../../shared/Interfaces/TaskInterface";
+import { TaskService } from "../../shared/services/api/tasks/TaskService";
 
 function ListPage() {
-    const [list] = useState<string[]>(['Teste 1', 'Teste 2']);
+    const [list, setList] = useState<TaskInterface[]>([]);
+
+    useEffect(() => {
+        TaskService.index().then((res) => setList(res));
+    }, []);
 
     return (
         <div>
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>First Name</th>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Completo</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {list.map((value) => {
-                        return <tr>
-                            <td key={value}>{value}</td>
+                    {list.map((task) => {
+                        return <tr key={task.id}>
+                            <td>{task.id}</td>
+                            <td>{task.title}</td>
+                            <td>{task.isCompleted === true ? 'Sim' : 'Não'}</td>
                         </tr>
                     })}
                 </tbody>
